@@ -16,6 +16,7 @@ $questions = new Users();
 $questions->particular_quiz_all_details($quiz_id);
 $questions->fetch_quiz_name($quiz_id);
 $quiz_duration = $questions->quiz[0]['quiz_duration'];
+$quiz_end_time = $questions->quiz[0]['sche_end_datetime'];
 // $questions->users_profile($email);
 // echo $_POST['cat'];
 // $cat=$_POST['cat'];
@@ -35,6 +36,7 @@ if($questions->check_quiz_attemption($quiz_id, $student_id)==true){
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <script type="text/javascript">
     function timeOut(){
       var minute = checkTime(Math.floor(timeLeft/60));
@@ -58,15 +60,34 @@ if($questions->check_quiz_attemption($quiz_id, $student_id)==true){
       return msg;
     }
     </script>
+
+
 </head>
+
 <body onload="timeOut()">
+
+<!-- <script>
+
+    var unloadEvent = function (e) {
+        var confirmationMessage = "R u sure";
+
+        document.getElementById("clickMe").click();
+
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage; //Webkit, Safari, Chrome etc.
+    };
+    // var unloadEvent = function (e) {
+    //   document.getElementById("clickMe").click();
+    // };
+    window.addEventListener("beforeunload", unloadEvent);
+</script> -->
 
 <!-- .......NavBar.......... -->
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-            <a class="navbar-brand" href="#">Online Quiz</a> <strong style="color:white"> (<?php echo $email; ?>) </strong>
+            <a class="navbar-brand" href="#" style="color:white">Online Quiz</a> <br> <strong style="color:white"> (<?php echo $email; ?>) </strong>
             </div>
         </div>
         </nav>

@@ -15,7 +15,7 @@ $profile = new Users();
 // $profile->categories();
 // print_r($profile->cat);
 $profile->particular_class($class_id);
-$profile->particular_class_quizes($class_id);
+$profile->particular_class_quizes_for_students($class_id);
 $profile->particular_class_students($class_id);
 $profile->fetch_class_joining_req($class_id);
 // echo "<h1>" . $profile->req[0]['id'] . "</h1>" ;

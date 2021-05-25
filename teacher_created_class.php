@@ -15,7 +15,7 @@ $profile = new Users();
 // $profile->categories();
 // print_r($profile->cat);
 $profile->particular_class($class_id);
-$profile->particular_class_quizes($class_id);
+$profile->particular_class_quizes_for_teachers($class_id);
 $profile->particular_class_students($class_id);
 $profile->fetch_class_joining_req($class_id);
 // echo "<h1>" . $profile->req[0]['id'] . "</h1>" ;
@@ -200,12 +200,14 @@ $profile->fetch_class_joining_req($class_id);
         </div>
         <!-- .......End of Add new Student...... -->
 
+      <!-- Student List Starts -->
       <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Remove Student</th>
             </tr>
         </thead>
         <tbody>
@@ -217,10 +219,13 @@ $profile->fetch_class_joining_req($class_id);
                 <td><?php echo $student['id']; ?></td>
                 <td><?php echo $student['name']; ?></td>
                 <td><?php echo $student['email']; ?></td>
+                <td><a href="remove_student_from_class_sub.php?class_id=<?php echo $class_id; ?>&student_id=<?php echo $student['id']; ?>" class="btn btn-danger" role="button">Remove</a></td>
             </tr>
         </tbody>
         <?php } ?>
     </table>
+    <!-- Student List Starts -->
+
     </div>
     <!-- <div id="logout" class="container tab-pane fade"><br>
       

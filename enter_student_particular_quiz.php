@@ -73,9 +73,11 @@ $end_time = $profile->quiz[0]['sche_end_datetime'];
     <?php echo "<h2>" . $profile->quiz[0]['quiz_name'] . "</h2>"; ?> 
 
     <br>
+    
 
     <?php echo "<h5> Start Time : " . $start_time . "</h5>"; ?>
     <?php echo "<h5> End Time : " . $end_time . "</h5>"; ?>
+   
     <?php echo "<h5> Quiz Duration : " . $profile->quiz[0]['quiz_duration'] . " min</h5>"; ?> 
 
     <br>

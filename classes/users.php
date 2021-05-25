@@ -362,9 +362,32 @@ class Users{
     //..........create new quiz in particular class ends.............
 
 
-    //..........fetch Quizes of particular class starts.............
+    //..........fetch Quizes of particular class for students starts.............
 
-    function particular_class_quizes($class_id){
+    function particular_class_quizes_for_students($class_id){
+        $conn = mysqli_connect('localhost','root','root','online_quiz');
+        if(!$conn){
+            die ("database connection failed ".mysqli_connect_error());
+        } 
+
+        $query = "SELECT * FROM `quizes` WHERE class_id = '$class_id' AND sche_start_datetime IS NOT NULL";
+        $run = mysqli_query($conn,$query);
+        // $row = $run->fetch_array(MYSQLI_ASSOC);
+
+        while($row = $run->fetch_array(MYSQLI_ASSOC)){
+            $this->quizes[] = $row;
+        }
+        return $this->quizes;
+    }
+
+    //..........fetch Quizes particular class for students ends.............
+
+
+
+
+    //..........fetch Quizes of particular class for teachers starts.............
+
+    function particular_class_quizes_for_teachers($class_id){
         $conn = mysqli_connect('localhost','root','root','online_quiz');
         if(!$conn){
             die ("database connection failed ".mysqli_connect_error());
@@ -380,7 +403,31 @@ class Users{
         return $this->quizes;
     }
 
-    //..........fetch Quizes particular class ends.............
+    //..........fetch Quizes particular class for teachers ends.............
+
+
+    
+    //..........delete student from particular class starts.............
+
+    function delete_student($class_id, $student_id){
+        $conn = mysqli_connect('localhost','root','root','online_quiz');
+        if(!$conn){
+            die ("database connection failed ".mysqli_connect_error());
+        } 
+
+        $query = "DELETE FROM `class_students` WHERE class_id = '$class_id' AND student_id = '$student_id'";
+        $run = mysqli_query($conn,$query);
+
+        if($run){
+            echo "Student deleted from the class successfully";
+            return true;
+        }else {
+            echo "Error: " . $data . "<br>" . mysqli_error($conn);
+            return false;
+        }
+    }
+
+    //..........delete student from particular class ends.............
 
 
 
@@ -392,7 +439,9 @@ class Users{
             die ("database connection failed ".mysqli_connect_error());
         } 
 
-        $query = "SELECT quiz_name, sche_start_datetime, sche_end_datetime, quiz_duration FROM `quizes` WHERE id = '$quiz_id'";
+        // DATE_FORMAT("2017-06-15 12:30:00", "%d %M %Y %r")
+
+        $query = "SELECT quiz_name, DATE_FORMAT(sche_start_datetime, '%d %M %Y %r') AS sche_start_datetime, DATE_FORMAT(sche_end_datetime, '%d %M %Y %r') AS sche_end_datetime, quiz_duration FROM `quizes` WHERE id = '$quiz_id'";
         $run = mysqli_query($conn,$query);
         // $row = $run->fetch_array(MYSQLI_ASSOC);
 
@@ -445,6 +494,58 @@ class Users{
     }
 
     //..........fetch particular quiz all details ends.............
+
+
+
+    //..........Delete particular question from a quiz for teachers starts.............
+
+    function delete_question($question_id){
+
+        $conn = mysqli_connect('localhost','root','root','online_quiz');
+        if(!$conn){
+            die ("database connection failed ".mysqli_connect_error());
+        } 
+
+        $query = "DELETE FROM `quiz_questions` WHERE id = '$question_id'";
+        $run = mysqli_query($conn,$query);
+
+        if($run){
+            echo "Question deleted successfully";
+            return true;
+        }else {
+            echo "Error: " . $data . "<br>" . mysqli_error($conn);
+            return false;
+        }
+
+    }
+
+    //..........Delete particular question from a quiz for teachers ends.............
+
+
+
+    //..........Update particular question from a quiz for teachers starts.............
+
+       function update_question($question_id,$ques,$option1,$option2,$option3,$option4,$correct_ans_index){
+
+        $conn = mysqli_connect('localhost','root','root','online_quiz');
+        if(!$conn){
+            die ("database connection failed ".mysqli_connect_error());
+        } 
+
+        $query = "UPDATE `quiz_questions` SET `question`='$ques',`option1`='$option1',`option2`='$option2',`option3`='$option3',`option4`='$option4',`correct_ans_index`='$correct_ans_index' WHERE `id`='$question_id'";
+        $run = mysqli_query($conn,$query);
+
+        if($run){
+            echo "Question edited successfully";
+            return true;
+        }else {
+            echo "Error: " . $data . "<br>" . mysqli_error($conn);
+            return false;
+        }
+
+    }
+    //..........Update particular question from a quiz for teachers ends.............
+
 
 
     //............add new question to particular quiz starts.................
